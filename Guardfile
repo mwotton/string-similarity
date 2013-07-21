@@ -16,10 +16,16 @@ guard :shell do
 #  end
 
   watch(%r{test/.*(?<!flymake)\.hs$}) do |files|
-    cmd = files.collect do |f|
-      "ghc -isrc -itest -e 'hspec spec' #{f} test/dummy.hs"
-    end.join(' && ')
-    `#{cmd}`
+    tests = files.reject{|x| x =~ /dummy.hs/ || x=~ /test\/Spec.hs/}
+    tests.inject(true) do |result, f|
+      puts f
+      cmd="ghc -isrc -itest -e 'hspec spec' #{f} test/dummy.hs"
+      puts cmd
+      puts `#{cmd}`
+
+      result && $? == 0
+    end
+
   end
 
 end
