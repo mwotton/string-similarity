@@ -19,6 +19,7 @@ library
   exposed-modules:  Data.List.CommonSubstring,
                     Data.List.SlowSubstring
   -- other-modules:
+  ghc-options: -O2
   build-depends:       base >= 4 && <= 5,
                        suffixtree
 
@@ -32,3 +33,15 @@ test-suite tests
                    , QuickCheck
                    , bytestring
                    , string-similarity
+
+benchmark bench-lcs
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   bench
+  main-is:          BenchAll.hs
+  build-depends:    base,
+                    criterion,
+                    string-similarity
+  ghc-options:      -O2
+                    -fmax-simplifier-iterations=10
+                    -fdicts-cheap
+                    -fspec-constr-count=6
