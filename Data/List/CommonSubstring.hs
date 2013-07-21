@@ -3,6 +3,10 @@ import Data.SuffixTree
 import Data.List
 import Data.Ord
 
+-- | This is the suffixtree based implementation.
+-- | If there are multiple longest substrings, which one is returned
+-- | is undefined.
+
 longestSubstring ::(Eq a, Ord a) => [a] -> [a] -> [a]
 longestSubstring first second = maximumBy (comparing length)
                                      $ map (longestMatch $ construct second)
