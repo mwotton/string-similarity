@@ -3,17 +3,21 @@
 
 name:                string-similarity
 version:             0.1.0.0
-synopsis:            algorithms for finding the longest common substring in a set of documents
--- description:
-homepage:            github.com/mwotton/string-similarity
+synopsis:            longest common substring
+description:         algorithms for finding the longest common substring in a set of documents
+homepage:            http://github.com/mwotton/string-similarity
 license:             BSD3
 license-file:        LICENSE
 author:              Mark Wotton
 maintainer:          mwotton@gmail.com
--- copyright:
 category:            Data
 build-type:          Simple
 cabal-version:       >=1.8
+
+source-repository head
+  type: git
+  location: https://github.com/mwotton/string-similarity.git
+
 
 library
   exposed-modules:  Data.List.CommonSubstring,
