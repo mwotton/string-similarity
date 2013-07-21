@@ -7,6 +7,8 @@ import Control.Applicative
 import qualified Data.ByteString.Char8 as BS
 import Data.List(sortBy,tails)
 import Data.Ord
+import Control.Monad(forM_)
+import qualified Data.List.CommonSubstring
 
 -- this type may not be accurate if there are many equal-length
 -- longest common substrings
@@ -31,3 +33,10 @@ spec = describe "common substring" $ do
   it "is sane" $ do
     slowLongestSubstring "abbd" "cbbe" `shouldBe` "bb"
     slowLongestSubstring "abbd" "fghij" `shouldBe` "a"
+
+  describe "suffixtree implementation" $ do
+    let samples = [("abcd", "aaaabcd")]
+    forM_ [("suffixtree", Data.List.CommonSubstring.longestSubstring)] $ \(label,f) ->
+      it ("should work for " ++ label) $
+        forM_ samples $ \(first, second) ->
+          f first second `shouldBe` slowLongestSubstring first second
